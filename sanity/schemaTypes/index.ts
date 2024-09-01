@@ -10,7 +10,6 @@ import { personList } from './objects/person-list'
 import { spotlightHeader } from './objects/spotlight-header'
 import { home } from './singletons/home'
 import { settings } from './singletons/settings'
-import { courseSchema } from './documents/course'
 
 export const schemaTypes = [
   page,
@@ -25,5 +24,4 @@ export const schemaTypes = [
   settings,
   person,
   personList,
-  courseSchema,
 ]
