@@ -1,6 +1,5 @@
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { VercelToolbar } from '@vercel/toolbar/next'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
@@ -67,7 +66,6 @@ export default function IndexRoute({
           See detailed instructions to limit who can see the toolbar for real applications:
           https://vercel.com/docs/workflow-collaboration/vercel-toolbar/in-production-and-localhost/add-to-production
         */}
-      <VercelToolbar />
       <SpeedInsights />
       <Analytics />
     </ThemeProvider>

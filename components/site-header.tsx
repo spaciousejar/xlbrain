@@ -7,8 +7,6 @@ import { MobileNav } from '@/components/mobile-nav'
 import { ModeToggle } from '@/components/mode-toggle'
 import { cn } from '@/lib/utils'
 import { loadSettings } from '@/sanity/loader/loadQuery'
-
-import DeployButton from './deploy-button'
 import { buttonVariants } from './ui/button'
 
 export async function SiteHeader() {
@@ -24,7 +22,6 @@ export async function SiteHeader() {
             <CommandMenu data={initial.data} />
           </div>
           <nav className="flex items-center">
-            <DeployButton />
             {initial?.data?.github && (
               <Link
                 prefetch
