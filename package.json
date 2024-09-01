@@ -24,7 +24,6 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-scroll-area": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
-    "@sanity/client": "^6.21.3",
     "@sanity/demo": "^2.0.0",
     "@sanity/icons": "^3.3.1",
     "@sanity/image-url": "^1.0.2",
