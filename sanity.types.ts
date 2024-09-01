@@ -163,6 +163,9 @@ export type Home = {
     | ({
         _key: string
       } & GridHighlight)
+    | ({
+        _key: string
+      } & PersonList)
   >
 }
 
@@ -284,6 +287,9 @@ export type CustomComponents = Array<
   | ({
       _key: string
     } & GridHighlight)
+  | ({
+      _key: string
+    } & PersonList)
 >
 
 export type CtaLink = {
@@ -372,16 +378,114 @@ export type Slug = {
   current: string
   source?: string
 }
+
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityFileAsset
+  | Geopoint
+  | PersonList
+  | Person
+  | Settings
+  | Home
+  | SpotlightHeader
+  | MetadataPage
+  | Hero
+  | GridHighlight
+  | CustomComponents
+  | CtaLink
+  | Duration
+  | Page
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SanityImageAsset
+  | SanityAssetSourceData
+  | SanityImageMetadata
+  | Slug
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./sanity/lib/queries.ts
 // Variable: homePageQuery
-// Query:   *[_type == "home"][0]{    _id,    overview,    body[]{      ...,      // this is the shorthand for the select() function in GROQ: https://www.sanity.io/docs/groq-functions#298e89c3c8d9      _type == "personList" => {        persons[]->{          firstName,          lastName,          _id,          image,          username        }      }    },    title,    metadataBase,  }
+// Query: *[_type == "home"][0]{    _id,    overview,    body[]{      ...,      // this is the shorthand for the select() function in GROQ: https://www.sanity.io/docs/groq-functions#298e89c3c8d9      _type == "personList" => {        persons[]->{          firstName,          lastName,          _id,          image,          username        }      }    },    title,    metadataBase,  }
 export type HomePageQueryResult = {
   _id: string
   overview: null
-  body: Array<{
-    _key: string
-  }> | null
+  body: Array<
+    | {
+        _key: string
+        _type: 'gridHighlight'
+        cards?: Array<{
+          title: string
+          description: string
+          bullets: Array<{
+            text: string
+            _key: string
+          }>
+          cta?: {
+            label: string
+            link: string
+          }
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'hero'
+        header?: {
+          title: string
+          description: string
+        }
+        products: Array<{
+          title: string
+          link: string
+          thumbnail: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            _type: 'image'
+          }
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'personList'
+        title: string
+        persons: Array<{
+          firstName: string
+          lastName: string
+          _id: string
+          image: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            _type: 'image'
+          }
+          username: {
+            link: string
+            text: string
+          } | null
+        }>
+      }
+    | {
+        _key: string
+        _type: 'spotlightHeader'
+        spotlight: string
+        title: string
+        description?: string
+        fill: string
+      }
+  > | null
   title: null
   metadataBase: {
     title: string
@@ -402,18 +506,91 @@ export type HomePageQueryResult = {
   } | null
 } | null
 // Variable: pagesBySlugQuery
-// Query:   *[_type == "page" && slug.current == $slug][0] {    _id,    body[]{      ...,      // this is the shorthand for the select() function in GROQ: https://www.sanity.io/docs/groq-functions#298e89c3c8d9      _type == "personList" => {        persons[]->{          firstName,          lastName,          _id,          image,          username        }      }    },    description,    title,    "slug": slug.current,  }
+// Query: *[_type == "page" && slug.current == $slug][0] {    _id,    body[]{      ...,      // this is the shorthand for the select() function in GROQ: https://www.sanity.io/docs/groq-functions#298e89c3c8d9      _type == "personList" => {        persons[]->{          firstName,          lastName,          _id,          image,          username        }      }    },    description,    title,    "slug": slug.current,  }
 export type PagesBySlugQueryResult = {
   _id: string
-  body: Array<{
-    _key: string
-  }> | null
+  body: Array<
+    | {
+        _key: string
+        _type: 'gridHighlight'
+        cards?: Array<{
+          title: string
+          description: string
+          bullets: Array<{
+            text: string
+            _key: string
+          }>
+          cta?: {
+            label: string
+            link: string
+          }
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'hero'
+        header?: {
+          title: string
+          description: string
+        }
+        products: Array<{
+          title: string
+          link: string
+          thumbnail: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            _type: 'image'
+          }
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'personList'
+        title: string
+        persons: Array<{
+          firstName: string
+          lastName: string
+          _id: string
+          image: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            _type: 'image'
+          }
+          username: {
+            link: string
+            text: string
+          } | null
+        }>
+      }
+    | {
+        _key: string
+        _type: 'spotlightHeader'
+        spotlight: string
+        title: string
+        description?: string
+        fill: string
+      }
+  > | null
   description: string
   title: string
   slug: string
 } | null
 // Variable: settingsQuery
-// Query:   *[_type == "settings"][0]{    footer,    menuItems[]->{      _type,      "slug": slug.current,      title    },    github,    twitter,    name,  }
+// Query: *[_type == "settings"][0]{    footer,    menuItems[]->{      _type,      "slug": slug.current,      title    },    github,    twitter,    name,  }
 export type SettingsQueryResult = {
   footer: null
   menuItems: Array<
@@ -432,3 +609,13 @@ export type SettingsQueryResult = {
   twitter: string | null
   name: string | null
 } | null
+
+// Query TypeMap
+import '@sanity/client'
+declare module '@sanity/client' {
+  interface SanityQueries {
+    '\n  *[_type == "home"][0]{\n    _id,\n    overview,\n    body[]{\n      ...,\n      // this is the shorthand for the select() function in GROQ: https://www.sanity.io/docs/groq-functions#298e89c3c8d9\n      _type == "personList" => {\n        persons[]->{\n          firstName,\n          lastName,\n          _id,\n          image,\n          username\n        }\n      }\n    },\n    title,\n    metadataBase,\n  }\n': HomePageQueryResult
+    '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    body[]{\n      ...,\n      // this is the shorthand for the select() function in GROQ: https://www.sanity.io/docs/groq-functions#298e89c3c8d9\n      _type == "personList" => {\n        persons[]->{\n          firstName,\n          lastName,\n          _id,\n          image,\n          username\n        }\n      }\n    },\n    description,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult
+    '\n  *[_type == "settings"][0]{\n    footer,\n    menuItems[]->{\n      _type,\n      "slug": slug.current,\n      title\n    },\n    github,\n    twitter,\n    name,\n  }\n': SettingsQueryResult
+  }
+}
